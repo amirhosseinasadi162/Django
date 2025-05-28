@@ -8,6 +8,16 @@
     <hr>
     <ul>
         {% for task in task %}
+        <form action="{% url 'toggle_complete' task.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">
+                {% if task.completed %}
+                    ✅
+                {% else %}
+                    ⭕
+                {% endif %}
+            </button>
+        </form>
         
             <li>
                 <strong>{{ task.title }}</strong> - 
