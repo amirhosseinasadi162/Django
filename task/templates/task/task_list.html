@@ -5,16 +5,29 @@
 </head>
 <body>
     <h1>📝 Task List</h1>
+    <hr>
     <ul>
-        {% for task in tasks %}
+        {% for task in task %}
+        
             <li>
                 <strong>{{ task.title }}</strong> - 
                 {% if task.completed %}✅{% else %}❌{% endif %}
                 | Due: {{ task.due_date }} | Priority: {{ task.get_priority_display }}
+                | <a href="{% url 'edit_task' task.id %}">✏️ Edit</a>
+                | <a href="{% url 'delete_task' task.id %}">🗑️ Delete</a>
+
             </li>
+            
         {% empty %}
             <li>No tasks available.</li>
+            
+
         {% endfor %}
+        </hr>
+    <hr>
+    <a href="{% url 'add_task' %}">➕ Add New Task</a>
+    </hr>
+        
     </ul>
 </body>
 </html>
