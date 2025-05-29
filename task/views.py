@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-
+from django.contrib.auth.decorators import login_required
 from .models import Task
 
 from .forms import TaskForm
@@ -7,11 +7,13 @@ from .forms import TaskForm
 # Create your views here.
 
 # show tasks
+@login_required
 def task_list(request):
     tasks = Task.objects.all()
     return render(request,'task/task_list.html',{'tasks':tasks})
 
 # add task
+@login_required
 def add_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -24,6 +26,7 @@ def add_task(request):
     return render(request,'task/add_task.html',{'form':form})
 
 #edit task 
+@login_required
 def edit_task(request,task_id):
     task = get_object_or_404(Task,id = task_id)
     if request.method == 'POST':
@@ -36,6 +39,7 @@ def edit_task(request,task_id):
     return render(request,'task/edit_task.html',{'form':form,'task':task})
 
 #delete task
+@login_required
 def delete_task(request,task_id):
     task = get_object_or_404(Task,id = task_id)
     if request.method == 'POST':
@@ -44,6 +48,7 @@ def delete_task(request,task_id):
     return render(request,'task/delete_task.html',{'task':task})
 
 #change the completed
+@login_required
 def toggle_complete(request,task_id):
     task = get_object_or_404(Task,id = task_id)
     task.completed = not task.completed

@@ -1,4 +1,4 @@
-{% extends 'task/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}لیست تسک‌ها{% endblock %}
 
@@ -27,5 +27,6 @@
         </ul>
     {% else %}
         <p>تسکی برای نمایش وجود ندارد.</p>
+        <a href="{% url 'add_task' %}">اضافه کردن تسک </a>
     {% endif %}
 {% endblock %}
