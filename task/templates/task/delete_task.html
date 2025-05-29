@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Task</title>
-</head>
-<body>
-    <h1>⚠️ Are you sure you want to delete "{{ task.title }}"?</h1>
+{% extends 'task/base.html' %}
+
+{% block title %}حذف تسک{% endblock %}
+
+{% block content %}
+    <h2>آیا مطمئن هستید که می‌خواهید "{{ task.title }}" را حذف کنید؟</h2>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Yes, Delete</button>
-        <a href="{% url 'task_list' %}">Cancel</a>
+        <button type="submit">بله، حذف کن</button>
+        <a href="{% url 'task_list' %}">خیر، بازگشت</a>
     </form>
-</body>
-</html>
+{% endblock %}

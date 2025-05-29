@@ -1,43 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Task List</title>
-</head>
-<body>
-    <h1>📝 Task List</h1>
-    <hr>
-    <ul>
-        {% for task in task %}
-        <form action="{% url 'toggle_complete' task.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">
-                {% if task.completed %}
-                    ✅
-                {% else %}
-                    ⭕
-                {% endif %}
-            </button>
-        </form>
-        
-            <li>
-                <strong>{{ task.title }}</strong> - 
-                {% if task.completed %}✅{% else %}❌{% endif %}
-                | Due: {{ task.due_date }} | Priority: {{ task.get_priority_display }}
-                | <a href="{% url 'edit_task' task.id %}">✏️ Edit</a>
-                | <a href="{% url 'delete_task' task.id %}">🗑️ Delete</a>
+{% extends 'task/base.html' %}
 
+{% block title %}لیست تسک‌ها{% endblock %}
+
+{% block content %}
+    <h2>لیست تسک‌ها</h2>
+
+    {% if tasks %}
+        <ul>
+            {% for task in tasks %}
+            <li class="{% if task.completed %}completed{% endif %}">
+                <div class="task-details">
+                    {{ task.title }}
+                    {% if task.due_date %}- مهلت: {{ task.due_date }}{% endif %}
+                    {% if task.priority %}- اولویت: {{ task.priority }}{% endif %}
+                </div>
+                <div class="actions">
+                    <a href="{% url 'edit_task' task.id %}">✏️ ویرایش</a>
+                    <a href="{% url 'delete_task' task.id %}">🗑️ حذف</a>
+                    <a href="{% url 'toggle_complete' task.id %}">
+                        {% if task.completed %}✅ لغو انجام{% else %}☑️ انجام شد{% endif %}
+                    </a>
+                </div>
             </li>
             
-        {% empty %}
-            <li>No tasks available.</li>
-            
-
-        {% endfor %}
-        </hr>
-    <hr>
-    <a href="{% url 'add_task' %}">➕ Add New Task</a>
-    </hr>
-        
-    </ul>
-</body>
-</html>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>تسکی برای نمایش وجود ندارد.</p>
+    {% endif %}
+{% endblock %}

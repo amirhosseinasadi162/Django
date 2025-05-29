@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Task</title>
-</head>
-<body>
-    <h1>✏️ Edit Task: {{ task.title }}</h1>
+{% extends 'task/base.html' %}
 
+{% block title %}ویرایش تسک{% endblock %}
+
+{% block content %}
+    <h2>ویرایش تسک: {{ task.title }}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save Changes</button>
+        <button type="submit">ذخیره تغییرات</button>
     </form>
-
-    <a href="{% url 'task_list' %}">⬅️ Back to Task List</a>
-</body>
-</html>
+{% endblock %}

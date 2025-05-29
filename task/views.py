@@ -9,7 +9,7 @@ from .forms import TaskForm
 # show tasks
 def task_list(request):
     tasks = Task.objects.all()
-    return render(request,'task/task_list.html',{'task':tasks})
+    return render(request,'task/task_list.html',{'tasks':tasks})
 
 # add task
 def add_task(request):
