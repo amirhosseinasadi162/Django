@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>حذف وظیفه</title>
+</head>
+<body>
+    <h1>آیا مطمئنی که می‌خوای "{{ task.title }}" رو حذف کنی؟</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">بله، حذف شود</button>
+        <a href="{% url 'home' %}">خیر، بازگشت</a>
+    </form>
+</body>
+</html>
